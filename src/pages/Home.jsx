@@ -34,8 +34,11 @@ export default function Home() {
   }
 
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">Explore Colleges</h1>
+    <div className="min-h-screen bg-gradient-to-b from-white to-blue-50 py-12 px-4 sm:px-8 lg:px-16">
+        <h1 className="text-3xl sm:text-4xl font-bold text-center text-blue-900 mb-8">
+            Find the Best Colleges Based on Your Rank
+        </h1>
+        
       <FilterBar onFilter={handleFilter} />
       {filtered.length === 0 ? (
         <p className="text-gray-600">No colleges match your filters.</p>
