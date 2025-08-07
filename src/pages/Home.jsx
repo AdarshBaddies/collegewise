@@ -20,7 +20,7 @@ export default function Home() {
   })
 
   useEffect(() => {
-    fetch(`${import.meta.env.BASE_URL}/colleges.json`)
+    fetch(`${import.meta.env.BASE_URL}colleges.json`)
       .then(res => res.json())
       .then(data => {
         setColleges(data)
