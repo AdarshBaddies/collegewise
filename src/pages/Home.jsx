@@ -20,7 +20,7 @@ export default function Home() {
   })
 
   useEffect(() => {
-    fetch(`/collegewise/colleges.json`)
+    fetch(`/colleges.json`)
       .then(res => res.json())
       .then(data => {
         setColleges(data)
