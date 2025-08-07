@@ -1,10 +1,22 @@
 import { useEffect, useState } from 'react'
 import CollegeCard from '../components/CollegeCard'
-import FilterBar from '../components/FilterBar'
+import FilterPanel from '../components/FilterPanel'
 
 export default function Home() {
   const [colleges, setColleges] = useState([])
   const [filtered, setFiltered] = useState([])
+
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filters, setFilters] = useState({
+    exam: '',
+    department: '',
+    structure: '',
+    quota: '',
+    accreditation: '',
+    category: '',
+    minRank: '',
+    maxRank: ''
+  })
 
   useEffect(() => {
     fetch('/colleges.json')
@@ -15,31 +27,57 @@ export default function Home() {
       })
   }, [])
 
-  const handleFilter = ({ exam, minRank, maxRank }) => {
+  useEffect(() => {
     let result = [...colleges]
 
-    if (exam) result = result.filter(c => c.exam === exam)
+    // Search filter
+    if (searchTerm) {
+      result = result.filter(college =>
+        college.name.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    }
 
-    if (minRank) result = result.filter(c => {
-      const rankValue = parseInt(c.rank.match(/\d+/)?.[0])
-      return rankValue >= parseInt(minRank)
+    // Dropdown + rank filters
+    Object.entries(filters).forEach(([key, value]) => {
+      if (value) {
+        if (key === 'minRank') {
+          result = result.filter(college => {
+            const rankValue = parseInt(college.rank?.match(/\d+/)?.[0])
+            return rankValue >= parseInt(value)
+          })
+        } else if (key === 'maxRank') {
+          result = result.filter(college => {
+            const rankValue = parseInt(college.rank?.match(/\d+/)?.[0])
+            return rankValue <= parseInt(value)
+          })
+        } else {
+          result = result.filter(college => college[key] === value)
+        }
+      }
     })
 
-    if (maxRank) result = result.filter(c => {
-      const rankValue = parseInt(c.rank.match(/\d+/)?.[0])
-      return rankValue <= parseInt(maxRank)
-    })
+    // Assign dynamic rank based on order
+    result = result.map((college, index) => ({
+      ...college,
+      rank: index + 1
+    }))
 
     setFiltered(result)
-  }
+  }, [searchTerm, filters, colleges])
 
   return (
-    <div className="min-h-screen bg-gradient-to-b   py-12 px-4 sm:px-8 lg:px-16">
-        <h1 className="text-3xl sm:text-4xl font-bold text-center text-blue-900 mb-8">
-            Find the Best Colleges Based on Your Rank
-        </h1>
-        
-      <FilterBar onFilter={handleFilter} />
+    <div className="min-h-screen py-12 px-4 sm:px-8 lg:px-16 bg-transparent">
+      <h1 className="text-3xl sm:text-4xl font-bold text-center text-blue-900 mb-8">
+        Find the Best Colleges Based on Your Rank
+      </h1>
+
+      {/* Combined filters: search + dropdown + rank */}
+      <FilterPanel
+        onSearch={(val) => setSearchTerm(val)}
+        onFilter={(updatedFilters) => setFilters(updatedFilters)}
+      />
+
+      {/* College list */}
       {filtered.length === 0 ? (
         <p className="text-gray-600">No colleges match your filters.</p>
       ) : (
