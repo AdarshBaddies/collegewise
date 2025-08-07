@@ -22,7 +22,7 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="md:hidden bg-blue-700 px-4 pb-4">
-          <Link to="/" className="block py-1 hover:underline">Home</Link>
+          <Link to="/" className="block py-1 hover:underline">Search</Link>
           <Link to="/about" className="block py-1 hover:underline">About</Link>
           <Link to="/contact" className="block py-1 hover:underline">Contact</Link>
         </div>

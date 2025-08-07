@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import CollegeCard from '../components/CollegeCard'
 import FilterPanel from '../components/FilterPanel'
+import TrueFocus from '../components/TrueFocus';
 
 export default function Home() {
   const [colleges, setColleges] = useState([])
@@ -67,8 +68,15 @@ export default function Home() {
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-8 lg:px-16 bg-transparent">
-      <h1 className="text-3xl sm:text-4xl font-bold text-center text-blue-900 mb-8">
-        Find the Best Colleges Based on Your Rank
+      <h1 className="text-3xl sm:text-4xl font-bold text-center text-blue-4000 mb-8">
+        <TrueFocus 
+            sentence="For You"
+            manualMode={false}
+            blurAmount={5}
+            borderColor="red"
+            animationDuration={2}
+            pauseBetweenAnimations={1}
+        />
       </h1>
 
       {/* Combined filters: search + dropdown + rank */}
@@ -81,7 +89,7 @@ export default function Home() {
       {filtered.length === 0 ? (
         <p className="text-gray-600">No colleges match your filters.</p>
       ) : (
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid md:grid-cols-1 lg:grid-cols-1 gap-8">
           {filtered.map(college => (
             <CollegeCard key={college.id} data={college} />
           ))}
