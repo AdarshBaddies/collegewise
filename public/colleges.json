@@ -1,0 +1,18 @@
+[
+  {
+    "id": 1,
+    "name": "Model Engineering College",
+    "location": "Thrikkakara, Kerala",
+    "exam": "KEAM",
+    "rank": "Under 3000",
+    "link": "https://mec.ac.in/"
+  },
+  {
+    "id": 2,
+    "name": "Government Engineering College, Barton Hill",
+    "location": "Thiruvananthapuram, Kerala",
+    "exam": "KEAM",
+    "rank": "Under 5000",
+    "link": "http://www.gecbh.ac.in/"
+  }
+]
