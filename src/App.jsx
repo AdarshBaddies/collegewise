@@ -5,10 +5,12 @@ import About from './pages/About'
 import Contact from './pages/Contact'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
+import ThreeBackground from './components/ThreeBackground';
 
 export default function App() {
   return (
     <>
+      <ThreeBackground />
       <Navbar />
       <div className="max-w-7xl mx-auto p-4">
         <Routes>
@@ -17,8 +19,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
         </Routes>
         <Footer />
-      </div>
-      
+      </div>  
     </>
   )
 }
