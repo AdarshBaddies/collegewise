@@ -5,9 +5,9 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <nav className="bg-blue-600 text-white">
+    <nav className=" text-white">
       <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-        <Link to="/" className="font-bold text-xl">CollegeWise</Link>
+        <Link to="/" className="font-semibold text-xl">Find Your College</Link>
         <div className="md:hidden">
           <button onClick={() => setIsOpen(!isOpen)} className="focus:outline-none">
             ☰

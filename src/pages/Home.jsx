@@ -2,10 +2,21 @@ import { useEffect, useState } from 'react'
 import CollegeCard from '../components/CollegeCard'
 import FilterPanel from '../components/FilterPanel'
 import TrueFocus from '../components/TrueFocus';
+import SponsorCard from '../components/SponsorCard'
 
 export default function Home() {
   const [colleges, setColleges] = useState([])
   const [filtered, setFiltered] = useState([])
+
+  const [sponsor, setSponsor] = useState(null)
+
+    useEffect(() => {
+    fetch(`${import.meta.env.BASE_URL}sponsor.json`)
+        .then(res => res.json())
+        .then(data => setSponsor(data))
+        .catch(err => console.error("Failed to load sponsor:", err))
+    }, [])
+
 
   const [searchTerm, setSearchTerm] = useState('')
   const [filters, setFilters] = useState({
@@ -78,6 +89,9 @@ export default function Home() {
             pauseBetweenAnimations={1}
         />
       </h1>
+
+      {sponsor && <SponsorCard data={sponsor} />} 
+
 
       {/* Combined filters: search + dropdown + rank */}
       <FilterPanel
